@@ -22,11 +22,18 @@ router.post('/add', async function (req, res) {
   }
 });
 
+router.patch('/:id', async (req, res) => {
+  try {
+    await Student.findByIdAndUpdate(req.params.id, req.body);
+    res.json({ message: 'Updated successfully' });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 router.delete('/:id', async function (req, res) {
   try {
-    await Student.findByIdAndDelete({
-      _id: req.params.id,
-    });
+    await Student.findByIdAndDelete(req.params.id);
     res.json({ message: 'Deleted successfully' });
   } catch (err) {
     res.send(err);

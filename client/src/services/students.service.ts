@@ -15,6 +15,10 @@ class StudentsService {
   public static async delete(_id: string) {
     await axios.delete(StudentsService.API_URL + `/${_id}`);
   }
+
+  public static async update(_id: string, data: Partial<StudentWithoutId>) {
+    await axios.patch(StudentsService.API_URL + `/${_id}`, data);
+  }
 }
 
 export default StudentsService;

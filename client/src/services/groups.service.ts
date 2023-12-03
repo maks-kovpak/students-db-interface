@@ -15,6 +15,10 @@ class GroupsService {
   public static async delete(_id: string) {
     await axios.delete(GroupsService.API_URL + `/${_id}`);
   }
+
+  public static async update(_id: string, data: Partial<GroupWithoutId>) {
+    await axios.patch(GroupsService.API_URL + `/${_id}`, data);
+  }
 }
 
 export default GroupsService;
