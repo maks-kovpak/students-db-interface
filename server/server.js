@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import studentsRouter from './routes/students.js';
+import groupsRouter from './routes/groups.js';
 
 const app = express();
 
@@ -23,6 +24,7 @@ async function main() {
 main().catch((err) => console.log(err));
 
 app.use('/api/students', studentsRouter);
+app.use('/api/groups', groupsRouter);
 
 // Startup our app at http://localhost:3000
 const port = process.env.PORT || 3000;

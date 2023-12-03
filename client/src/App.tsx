@@ -1,13 +1,11 @@
 import Header from './components/Header';
-import Banner from './components/Banner';
-import StudentsTable from './components/StudentsTable';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <>
       <Header />
-      <Banner pageName="Home" message="Welcome to the main page!" />
-      <StudentsTable />
+      <Outlet />
     </>
   );
 }

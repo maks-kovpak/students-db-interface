@@ -3,7 +3,7 @@ import React, { useCallback, useContext } from 'react';
 import StudentsService from '../services/students.service';
 import { StudentsContext } from '../providers/StudentsProvider';
 
-function CreateForm() {
+function CreateStudentForm() {
   const { updateStudents } = useContext(StudentsContext)!;
 
   const submitForm = useCallback(
@@ -45,4 +45,4 @@ function CreateForm() {
   );
 }
 
-export default CreateForm;
+export default CreateStudentForm;

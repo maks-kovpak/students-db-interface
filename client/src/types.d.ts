@@ -7,3 +7,10 @@ type Student = {
 };
 
 type StudentWithoutId = Omit<Student, '_id'>;
+
+type Group = {
+  _id: string;
+  group_number: number;
+};
+
+type GroupWithoutId = Omit<Group, '_id'>;
