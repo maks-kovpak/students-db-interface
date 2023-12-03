@@ -1,13 +1,14 @@
-import { Button, TextInput } from 'flowbite-react/lib/esm/components';
-import React, { useCallback, useContext } from 'react';
+import { TextInput } from 'flowbite-react/lib/esm/components';
+import React, { RefObject, useCallback, useContext } from 'react';
 import { StudentsContext } from '../providers/StudentsProvider.tsx';
 import StudentsService from '../services/students.service.ts';
 
 type EditStudentFormProps = {
   prefillData: Student;
+  formRef: RefObject<HTMLFormElement>;
 };
 
-function EditStudentForm({ prefillData }: EditStudentFormProps) {
+function EditStudentForm({ prefillData, formRef }: EditStudentFormProps) {
   const { updateStudents } = useContext(StudentsContext)!;
 
   const submitForm = useCallback(
@@ -34,7 +35,7 @@ function EditStudentForm({ prefillData }: EditStudentFormProps) {
   );
 
   return (
-    <form className="flex w-2/3 max-w-xl flex-col gap-4 mt-8" onSubmit={submitForm} method="post">
+    <form ref={formRef} className="flex w-full flex-col gap-4" onSubmit={submitForm} method="post">
       <div className="w-full grid grid-cols-2 grid-rows-2 gap-2">
         <TextInput
           id="first-name"
@@ -72,10 +73,6 @@ function EditStudentForm({ prefillData }: EditStudentFormProps) {
           required
         />
       </div>
-
-      <Button type="submit" color="blue">
-        Edit
-      </Button>
     </form>
   );
 }

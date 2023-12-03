@@ -1,5 +1,5 @@
 import { Button, Table } from 'flowbite-react';
-import { useContext, useState } from 'react';
+import { RefObject, useContext, useRef, useState } from 'react';
 import { StudentsContext } from '../providers/StudentsProvider';
 import StudentsService from '../services/students.service';
 import EditStudentForm from './EditStudentForm.tsx';
@@ -9,6 +9,7 @@ function StudentsTable() {
   const { students, updateStudents } = useContext(StudentsContext)!;
   const [editedStudent, setEditedStudent] = useState<Student>();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const formRef = useRef<HTMLFormElement>() as RefObject<HTMLFormElement>;
 
   return (
     <>
@@ -55,7 +56,8 @@ function StudentsTable() {
       <ModalForm
         openModal={openModal}
         setOpenModal={setOpenModal}
-        form={<EditStudentForm prefillData={editedStudent!} />}
+        form={<EditStudentForm prefillData={editedStudent!} formRef={formRef} />}
+        formRef={formRef}
       />
     </>
   );

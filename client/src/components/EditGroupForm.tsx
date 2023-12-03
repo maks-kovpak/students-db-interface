@@ -1,13 +1,14 @@
-import { Button, TextInput } from 'flowbite-react/lib/esm/components';
-import React, { useCallback, useContext } from 'react';
+import { TextInput } from 'flowbite-react/lib/esm/components';
+import React, { RefObject, useCallback, useContext } from 'react';
 import { GroupsContext } from '../providers/GroupsProvider.tsx';
 import GroupsService from '../services/groups.service.ts';
 
 type EditGroupFormProps = {
   prefillData: Group;
+  formRef: RefObject<HTMLFormElement>;
 };
 
-function EditGroupForm({ prefillData }: EditGroupFormProps) {
+function EditGroupForm({ prefillData, formRef }: EditGroupFormProps) {
   const { updateGroups } = useContext(GroupsContext)!;
 
   const submitForm = useCallback(
@@ -31,7 +32,7 @@ function EditGroupForm({ prefillData }: EditGroupFormProps) {
   );
 
   return (
-    <form className="flex w-2/3 max-w-xl flex-col gap-4 mt-8" onSubmit={submitForm} method="post">
+    <form ref={formRef} className="flex w-2/3 max-w-xl flex-col gap-4 mt-8" onSubmit={submitForm} method="post">
       <div className="w-full">
         <TextInput
           id="group-number"
@@ -42,10 +43,6 @@ function EditGroupForm({ prefillData }: EditGroupFormProps) {
           required
         />
       </div>
-
-      <Button type="submit" color="blue">
-        Edit
-      </Button>
     </form>
   );
 }
