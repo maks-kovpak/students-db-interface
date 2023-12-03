@@ -1,15 +1,26 @@
 import { Button, Table } from 'flowbite-react';
-import { RefObject, useContext, useRef, useState } from 'react';
+import { RefObject, useContext, useEffect, useRef, useState } from 'react';
 import { StudentsContext } from '../providers/StudentsProvider';
 import StudentsService from '../services/students.service';
 import EditStudentForm from './EditStudentForm.tsx';
 import ModalForm from './ModalForm.tsx';
+import { useSearchParams } from 'react-router-dom';
 
 function StudentsTable() {
   const { students, updateStudents } = useContext(StudentsContext)!;
   const [editedStudent, setEditedStudent] = useState<Student>();
+  const [filteredStudents, setFilteredStudents] = useState<Student[] | undefined>(students);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>() as RefObject<HTMLFormElement>;
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    if (params.get('group')) {
+      setFilteredStudents(students?.filter((student) => student.group_number === parseInt(params.get('group')!)));
+    } else {
+      setFilteredStudents(students);
+    }
+  }, [students, params]);
 
   return (
     <>
@@ -25,7 +36,7 @@ function StudentsTable() {
         </Table.Head>
 
         <Table.Body className="divide-y">
-          {students?.map((student) => (
+          {filteredStudents?.map((student) => (
             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={student._id}>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {student.first_name}
