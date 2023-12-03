@@ -32,7 +32,7 @@ function EditGroupForm({ prefillData, formRef }: EditGroupFormProps) {
   );
 
   return (
-    <form ref={formRef} className="flex w-2/3 max-w-xl flex-col gap-4 mt-8" onSubmit={submitForm} method="post">
+    <form ref={formRef} className="flex w-full flex-col gap-4" onSubmit={submitForm} method="post">
       <div className="w-full">
         <TextInput
           id="group-number"

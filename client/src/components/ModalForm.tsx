@@ -1,5 +1,5 @@
 import { Button, Modal } from 'flowbite-react/lib/esm/components';
-import React, { ReactElement, RefObject } from 'react';
+import React, { ReactElement, RefObject, useCallback, useEffect } from 'react';
 
 type ModalFormProps = {
   openModal: boolean;
@@ -9,6 +9,15 @@ type ModalFormProps = {
 };
 
 function ModalForm({ openModal, setOpenModal, form, formRef }: ModalFormProps) {
+  const closeModal = useCallback(() => setOpenModal(false), [setOpenModal]);
+
+  useEffect(() => {
+    const form = formRef.current;
+    form?.addEventListener('submit', closeModal);
+    
+    return () => form?.removeEventListener('submit', closeModal);
+  }, [formRef, closeModal]);
+
   return (
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
